@@ -120,7 +120,7 @@ void atbm_wifi_chip_probe_set(u16 idProduct)
 		wifi_chip_probe = 2;
 	}else if(idProduct == 0x8891){
 		wifi_chip_probe = 3;
-		atbm_printk_err("Mercuries Probe!\n");
+		atbm_printk_err("Mercurius Probe!\n");
 	}else if(idProduct == 0x6162){
 		wifi_chip_probe = 4;
 		atbm_printk_err("Mercurius-C Probe!\n");
