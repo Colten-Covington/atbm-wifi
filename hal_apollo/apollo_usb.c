@@ -406,6 +406,7 @@ static const struct usb_device_id atbm_usb_ids[] = {
 #endif
 #ifdef 	CONFIG_SUPPORT_MERCURIUS_FIRMWARE_H_
 	{USB_DEVICE(0x007a, 0x8890)},
+	{USB_DEVICE(0x007a, 0x6162)},
 #endif
     {USB_DEVICE(WIFI_USB_VID, WIFI_USB_PID)},
 

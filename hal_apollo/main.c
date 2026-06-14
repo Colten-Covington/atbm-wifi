@@ -108,6 +108,7 @@ int atbm_wifi_bt_comb_get(void)
 
 //0 : not probe , 1:6012b , 2:6012b-x/y 6032-x
 //3 : 6132
+//4 : 6132C
 static int wifi_chip_probe = 0;
 void atbm_wifi_chip_probe_set(u16 idProduct)
 {
@@ -120,6 +121,9 @@ void atbm_wifi_chip_probe_set(u16 idProduct)
 	}else if(idProduct == 0x8891){
 		wifi_chip_probe = 3;
 		atbm_printk_err("Mercuries Probe!\n");
+	}else if(idProduct == 0x6162){
+		wifi_chip_probe = 4;
+		atbm_printk_err("Mercurius-C Probe!\n");
 	}else{
 		wifi_chip_probe = 0;
 		atbm_printk_err("reset wifi_chip_probe!\n");
@@ -212,12 +216,14 @@ const char chip_mercurius_str[7][CHIP_NAME_LEN]={
 #ifdef USB_BUS
 "6132-BU",
 "6132-NU",
+"6132-CU",
 #else
 "6132-BS",
+"NULL",
+"NULL",
 #endif
 "NULL",
 "NULL",
-"NULL"
 };
 
 

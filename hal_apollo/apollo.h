@@ -589,6 +589,7 @@ priv->chip_flag :
 	3~5:resver 
 	6:6132UB/6132SB 
 	7:6132NB
+	8:6132CU
 */
 	u32 chip_flag;
 	
@@ -607,6 +608,7 @@ enum atbm_wifi_chip_type{
 	ATBM_6012B_X=2,
 	ATBM_6132UB_6132SB=6,
 	ATBM_6132NB=7,
+	ATBM_6132CU=8,
 };
 /* Virtual Interface State. One copy per VIF */
 struct atbm_vif {

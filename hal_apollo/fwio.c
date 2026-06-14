@@ -362,13 +362,16 @@ bool atbm_check_6012B(struct atbm_common *priv)
 }
 bool atbm_check_Mercurius_type(struct atbm_common *priv)
 {
-	//priv->chip_flag 0:6032-X/6031-X  1:6012B-Y  2:6012B-X 3~5:resver 6:6132UB/6132SB 7:6132NB
+	//priv->chip_flag 0:6032-X/6031-X  1:6012B-Y  2:6012B-X 3~5:resver 6:6132UB/6132SB 7:6132NB 8:6132CU
 	if(atbm_wifi_bt_comb_get() == 1)
 		priv->loader_ble = 1;
 	else
 		priv->loader_ble = 0;
 #ifdef USB_BUS
-	priv->chip_flag = 6;
+	if(atbm_wifi_chip_probe_get() == 4)
+		priv->chip_flag = 8;
+	else
+		priv->chip_flag = 6;
 #else
 	priv->chip_flag = 6;
 #endif
