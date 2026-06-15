@@ -41,7 +41,7 @@
 
 #else
 
-static char *fw = NULL;//FIRMWARE_DEFAULT_PATH;
+static char *fw = FIRMWARE_DEFAULT_PATH;//thingino: one .bin per build via CONFIG_FW_NAME
 
 char firmware_bin[][36]={
 #ifdef USB_BUS
@@ -457,9 +457,10 @@ char * atbm_HwGetChipFw(struct atbm_common *priv)
 	char * strHwChipFw = NULL;
 
 
+#if 0 /* thingino: fw name comes from CONFIG_FW_NAME (one .bin per build); chip is auto-detected at runtime, so the per-chip name table is unused */
 	switch(priv->chip_version)
 	{
-	
+
 	case CRONUS:
 	case CRONUS_NO_HT40:
 	case CRONUS_NO_HT40_LDPC:	
@@ -481,6 +482,7 @@ char * atbm_HwGetChipFw(struct atbm_common *priv)
 	default:
 		atbm_printk_always("atbm_HwGetChipFw looks check fail!\n");
 	}
+#endif
 
 
 	if(fw)
