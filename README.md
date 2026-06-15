@@ -7,9 +7,10 @@ This driver supports a range of chipsets in the 6xxx series.  Some Altobeam-base
 Below is a detailed list of the supported chipsets, including their dimensions, production dates, features, and current production status.
 
 The original ATBM6062 (Cronus) lives in the `atbm-606x` branch. The newer Wi-Fi 6
-"40M lite" SDK — covering **ATBM6062**, **ATBM6062-C**, **ATBM6162** and
-**ATBM6132-C** — lives in the `atbm-606x-c` branch; see the [Wi-Fi 6 Variants](#wi-fi-6-variants-atbm-606x-c-branch)
-table below for the per-chip build/firmware matrix.
+"40M lite" SDK — covering **ATBM6062**, **ATBM6062-C**, **ATBM6162** and **ATBM6132-C** —
+lives in the `atbm-606x-c` branch (per-chip configs in `configs/`, firmware blobs in
+`firmware/`). The chip is auto-detected at runtime; each build targets one bus and loads
+a single firmware blob, installed as `<module>_fw.bin`.
 
 ### ALTOBEAM:
 | chip        | size | release | status  | description                                                                              |
@@ -25,32 +26,10 @@ table below for the per-chip build/firmware matrix.
 | ATBM6032-X  | 4x4  | Q2 2023 | Current | 1T1R, IEEE 802.11b/g/n, HT20/HT40, BLE, USB                                              |
 | ATBM6132    | 5x5  | Q4 2023 | Current | 1T1R, IEEE 802.11a/b/g/n, 2.4/5GHz dual band, HT20/HT40, BLE v5.0 Combo chip             |
 | ATBM6x41    | 6x6  | Q2 2021 | Current | 1T1R, IEEE 802.11b/g/n, low power iot Wi-Fi chip, embedded MCU, 2Mbit Flash              |
-| ATBM6062    | 5x5  | Q1 2023 | Current | 1T1R, IEEE 802.11b/g/n/ax, 2.4GHz, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Cronus)                |
-| ATBM6062-C  | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11b/g/n/ax, 2.4GHz, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Cronus-Lite)           |
-| ATBM6162    | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11a/b/g/n/ac/ax, 2.4/5GHz dual band, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Oceanus) |
-| ATBM6132-C  | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11a/b/g/n, 2.4/5GHz dual band, HT20/HT40, Wi-Fi 4 + BLE v5.0 (Oceanus die) |
-
-### Wi-Fi 6 Variants (`atbm-606x-c` branch)
-
-Built from the `atbm-606x-c` branch. The chip is auto-detected at runtime; each build
-targets one bus and loads a single firmware blob (named by `CONFIG_ATBM_FW_NAME_WIFI6`,
-installed as `<module>_fw.bin`). Wi-Fi-only (no BLE-comb) in these configs.
-
-| chip        | size | release | status  | description                                                                              |
-|-------------|------|---------|---------|------------------------------------------------------------------------------------------|
-| ATBM6062    | 5x5  | Q1 2023 | Current | Cronus (chip_id 0x5A); USB atbm6062u → firmware_usb_cronus.bin, SDIO atbm6062s → firmware_sdio_cronus.bin |
-| ATBM6062-C  | 4x4  | Q4 2024 | Current | Cronus-Lite (0x5C); USB atbm6062cu → firmware_usb_clite.bin, SDIO atbm6062cs → firmware_sdio_clite.bin    |
-| ATBM6162    | 4x4  | Q4 2024 | Current | Oceanus (0x30); USB atbm6162u → firmware_usb_ocea.bin, SDIO atbm6162s → firmware_sdio_ocea.bin            |
-| ATBM6132-C  | 4x4  | Q4 2024 | Current | Oceanus die (0x30), Wi-Fi 4; USB atbm6132cu / SDIO atbm6132cs → firmware_{usb,sdio}_ocea.bin (shares 6162 fw) |
-
-Notes:
-- **ATBM6162 and ATBM6132-C share the same Oceanus die** (`chip_id 0x30`) and the same
-  `ocea` firmware. The 6132-C is fused to Wi-Fi 4 (no HE/VHT); the firmware reports the
-  capability at runtime, so one build serves both.
-- **ATBM6062-C is the cost-reduced "Cronus-Lite" revision** of the ATBM6062 — a distinct
-  die (`chip_id 0x5C`) with its own `clite` firmware.
-- Configs are in `configs/`; firmware blobs (generated from the `hal_apollo/firmware_*.h`
-  headers via `firmware/create_firmware.sh`) are in `firmware/`.
+| ATBM6062    | 5x5  | Q1 2023 | Current | 1T1R, IEEE 802.11b/g/n/ax, 2.4GHz, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Cronus, 0x5A) — firmware_{usb,sdio}_cronus.bin |
+| ATBM6062-C  | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11b/g/n/ax, 2.4GHz, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Cronus-Lite, 0x5C) — firmware_{usb,sdio}_clite.bin |
+| ATBM6162    | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11a/b/g/n/ac/ax, 2.4/5GHz dual band, HT20/HT40, Wi-Fi 6 + BLE v5.0 (Oceanus, 0x30) — firmware_{usb,sdio}_ocea.bin |
+| ATBM6132-C  | 4x4  | Q4 2024 | Current | 1T1R, IEEE 802.11a/b/g/n, 2.4/5GHz dual band, HT20/HT40, Wi-Fi 4 + BLE v5.0 (Oceanus die 0x30, shares 6162 firmware) |
 
 ### SIGMASTAR:
 | chip        | size | release | status  | description                                                                              |
