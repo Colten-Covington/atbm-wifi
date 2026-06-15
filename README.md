@@ -32,21 +32,16 @@ table below for the per-chip build/firmware matrix.
 
 ### Wi-Fi 6 Variants (`atbm-606x-c` branch)
 
-The `atbm-606x-c` branch builds the Wi-Fi 6 SDK for four products spanning three
-silicon dies. The chip is auto-detected at runtime; each build is configured for one
-bus and loads a single firmware blob (named by `CONFIG_ATBM_FW_NAME_WIFI6`, installed
-as `<module>_fw.bin`). All variants are Wi-Fi-only (no BLE-comb) in these configs.
+Built from the `atbm-606x-c` branch. The chip is auto-detected at runtime; each build
+targets one bus and loads a single firmware blob (named by `CONFIG_ATBM_FW_NAME_WIFI6`,
+installed as `<module>_fw.bin`). Wi-Fi-only (no BLE-comb) in these configs.
 
-| product     | silicon     | chip_id | bands  | Wi-Fi | bus  | module      | config              | firmware blob              |
-|-------------|-------------|---------|--------|-------|------|-------------|---------------------|----------------------------|
-| ATBM6062    | Cronus      | 0x5A    | 2.4    | 6     | USB  | atbm6062u   | atbm6062u.config    | firmware_usb_cronus.bin    |
-| ATBM6062    | Cronus      | 0x5A    | 2.4    | 6     | SDIO | atbm6062s   | atbm6062s.config    | firmware_sdio_cronus.bin   |
-| ATBM6062-C  | Cronus-Lite | 0x5C    | 2.4    | 6     | USB  | atbm6062cu  | atbm6062cu.config   | firmware_usb_clite.bin     |
-| ATBM6062-C  | Cronus-Lite | 0x5C    | 2.4    | 6     | SDIO | atbm6062cs  | atbm6062cs.config   | firmware_sdio_clite.bin    |
-| ATBM6162    | Oceanus     | 0x30    | 2.4/5  | 6+ac  | USB  | atbm6162u   | atbm6162u.config    | firmware_usb_ocea.bin      |
-| ATBM6162    | Oceanus     | 0x30    | 2.4/5  | 6+ac  | SDIO | atbm6162s   | atbm6162s.config    | firmware_sdio_ocea.bin     |
-| ATBM6132-C  | Oceanus     | 0x30    | 2.4/5  | 4     | USB  | atbm6132cu  | atbm6132cu.config   | firmware_usb_ocea.bin      |
-| ATBM6132-C  | Oceanus     | 0x30    | 2.4/5  | 4     | SDIO | atbm6132cs  | atbm6132cs.config   | firmware_sdio_ocea.bin     |
+| chip        | size | release | status  | description                                                                              |
+|-------------|------|---------|---------|------------------------------------------------------------------------------------------|
+| ATBM6062    | 5x5  | Q1 2023 | Current | Cronus (chip_id 0x5A); USB atbm6062u → firmware_usb_cronus.bin, SDIO atbm6062s → firmware_sdio_cronus.bin |
+| ATBM6062-C  | 4x4  | Q4 2024 | Current | Cronus-Lite (0x5C); USB atbm6062cu → firmware_usb_clite.bin, SDIO atbm6062cs → firmware_sdio_clite.bin    |
+| ATBM6162    | 4x4  | Q4 2024 | Current | Oceanus (0x30); USB atbm6162u → firmware_usb_ocea.bin, SDIO atbm6162s → firmware_sdio_ocea.bin            |
+| ATBM6132-C  | 4x4  | Q4 2024 | Current | Oceanus die (0x30), Wi-Fi 4; USB atbm6132cu / SDIO atbm6132cs → firmware_{usb,sdio}_ocea.bin (shares 6162 fw) |
 
 Notes:
 - **ATBM6162 and ATBM6132-C share the same Oceanus die** (`chip_id 0x30`) and the same
