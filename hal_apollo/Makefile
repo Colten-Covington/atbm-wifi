@@ -14,9 +14,11 @@
 ##对于调度快+cpu慢的板子使用 模式3 或者 模式6
 ## 默认使用模式 3
 #####################################################################################################################################################################################################################
-ifneq ($(ATBM_BUILD_IN_KERNEL),y)
+# thingino: always include the driver .config that buildroot stages at $(M)/.config.
+# The in-kernel (M=) build exports ATBM_BUILD_IN_KERNEL=y, which previously skipped
+# this and left every CONFIG_ATBM_* empty (broke WEP/SW_ENC, P2P, fw name, ...).
+-include $(M)/.config
 -include $(WIFI_PROJ_DIR)/.config
-endif
 
 
 
